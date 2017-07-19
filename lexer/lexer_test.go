@@ -5,12 +5,12 @@ import (
 	"../token"
 )
 func TestNextToken(t *testing.T) {
-	input := `let five = 5;
-	let ten = 10;
-	let add = fn(x, y) {
+	input := `let five := 5;
+	let ten := 10;
+	let add := fn(x, y) {
 		x + y;
 	};
-	let result = add(five, ten);
+	let result := add(five, ten);
 	`
 
 	tests := []struct {
@@ -19,17 +19,17 @@ func TestNextToken(t *testing.T) {
 	}{
 		{token.LET, "let"},
 		{token.IDENT, "five"},
-		{token.ASSIGN, "="},
+		{token.ASSIGN, ":="},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
 		{token.IDENT, "ten"},
-		{token.ASSIGN, "="},
+		{token.ASSIGN, ":="},
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
 		{token.IDENT, "add"},
-		{token.ASSIGN, "="},
+		{token.ASSIGN, ":="},
 		{token.FUNCTION, "fn"},
 		{token.LPAREN, "("},
 		{token.IDENT, "x"},
@@ -45,7 +45,7 @@ func TestNextToken(t *testing.T) {
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
 		{token.IDENT, "result"},
-		{token.ASSIGN, "="},
+		{token.ASSIGN, ":="},
 		{token.IDENT, "add"},
 		{token.LPAREN, "("},
 		{token.IDENT, "five"},

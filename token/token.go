@@ -13,7 +13,7 @@ const (
 	IDENT = "IDENT" // add, foobar, x, y, ...
 	INT = "INT" // 1343456
 	// Operators
-	ASSIGN = "="
+	ASSIGN = "ASSIGN"
 	PLUS = "+"
 	// Delimiters
 	COMMA = ","
@@ -27,12 +27,13 @@ const (
 	LET = "LET"
 )
 
-var keywords = map[string]TokenType{
+var symbols = map[string]TokenType{
 	"fn": FUNCTION,
 	"let": LET,
+	":=": ASSIGN,
 }
 func LookupIdent(ident string) TokenType {
-	if tok, ok := keywords[ident]; ok {
+	if tok, ok := symbols[ident]; ok {
 		return tok
 	}
 	return IDENT
