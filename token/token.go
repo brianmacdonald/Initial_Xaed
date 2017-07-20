@@ -13,7 +13,9 @@ const (
 	IDENT = "IDENT" // add, foobar, x, y, ...
 	INT   = "INT"   // 1343456
 	// Operators
-	ASSIGN   = "ASSIGN"
+	ASSIGN   = ":="
+	REASSIGN = "="
+	COLON    = ":"
 	PLUS     = "+"
 	MINUS    = "-"
 	BANG     = "!"
@@ -21,6 +23,8 @@ const (
 	SLASH    = "/"
 	LT       = "<"
 	GT       = ">"
+	EQ       = "=="
+	NOT_EQ   = "!="
 	// Delimiters
 	COMMA     = ","
 	SEMICOLON = ";"
@@ -28,6 +32,8 @@ const (
 	RPAREN    = ")"
 	LBRACE    = "{"
 	RBRACE    = "}"
+	// Slots
+	SLOT = "."
 	// Keywords
 	FUNCTION = "FUNCTION"
 	LET      = "LET"

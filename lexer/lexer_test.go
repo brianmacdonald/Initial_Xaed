@@ -12,12 +12,21 @@ func TestNextToken(t *testing.T) {
 	};
 	let result := add(five, ten);
 	!-/*5;
+
+	five: ten;
+	five = ten;
+
     5 < 10 > 5;
     if (5 < 10) {
        return true;
    	} else {
        return false;
     }
+
+	10 == 10;
+	10 != 9;
+
+	five.add := add;
 	`
 
 	/*
@@ -76,6 +85,14 @@ func TestNextToken(t *testing.T) {
 		{token.ASTERISK, "*"},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.COLON, ":"},
+		{token.IDENT, "ten"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.REASSIGN, "="},
+		{token.IDENT, "ten"},
+		{token.SEMICOLON, ";"},
 		{token.INT, "5"},
 		{token.LT, "<"},
 		{token.INT, "10"},
@@ -99,6 +116,20 @@ func TestNextToken(t *testing.T) {
 		{token.FALSE, "false"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
+		{token.INT, "10"},
+		{token.EQ, "=="},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+		{token.INT, "10"},
+		{token.NOT_EQ, "!="},
+		{token.INT, "9"},
+		{token.SEMICOLON, ";"},
+		{token.IDENT, "five"},
+		{token.SLOT, "."},
+		{token.IDENT, "add"},
+		{token.ASSIGN, ":="},
+		{token.IDENT, "add"},
+		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
 	l := New(input)
