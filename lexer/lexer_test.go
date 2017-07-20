@@ -5,28 +5,29 @@ import (
 	"../token"
 )
 func TestNextToken(t *testing.T) {
-	input := `let five := 5;
-	let ten := 10;
-	let add := fn(x, y) {
-		x + y;
-	};
-	let result := add(five, ten);
-	!-/*5;
+	input := `
+let five := 5;
+let ten := 10;
+let add := fn(x, y) {
+	x + y;
+};
+let result := add(five, ten);
+!-/*5;
 
-	five: ten;
-	five = ten;
+five: ten;
+five = ten;
 
-    5 < 10 > 5;
-    if (5 < 10) {
-       return true;
-   	} else {
-       return false;
-    }
+5 < 10 > 5;
+if (5 < 10) {
+   return true;
+} else {
+   return false;
+}
 
-	10 == 10;
-	10 != 9;
+10 == 10;
+10 != 9;
 
-	five.add := add;
+five.add := add;
 	`
 
 	/*
