@@ -14,7 +14,13 @@ const (
 	INT = "INT" // 1343456
 	// Operators
 	ASSIGN = "ASSIGN"
-	PLUS = "+"
+	PLUS     = "+"
+	MINUS    = "-"
+	BANG     = "!"
+	ASTERISK = "*"
+	SLASH    = "/"
+	LT = "<"
+	GT = ">"
 	// Delimiters
 	COMMA = ","
 	SEMICOLON = ";"
@@ -30,7 +36,6 @@ const (
 var symbols = map[string]TokenType{
 	"fn": FUNCTION,
 	"let": LET,
-	":=": ASSIGN,
 }
 func LookupIdent(ident string) TokenType {
 	if tok, ok := symbols[ident]; ok {
