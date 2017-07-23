@@ -1,1 +1,10 @@
-package main
+language: go
+
+go:
+  - 1.6
+  - 1.7
+  - 1.8
+  - tip
+
+script:
+  - go test -cpu=1,2 -v ./...
