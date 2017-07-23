@@ -6,7 +6,7 @@ go:
   - 1.8
   - tip
 
-go_import_path: src
+install: true
 
 script:
-  - GOPATH="$PWD/src/" go test -cpu=1,2 -v ./...
+  - go test -cpu=1,2 -v ./...
