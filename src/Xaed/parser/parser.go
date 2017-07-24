@@ -1,21 +1,22 @@
 package parser
 
 import (
-	"fmt"
-	"strconv"
+	"Xaed/ast"
 	"Xaed/lexer"
 	"Xaed/token"
-	"Xaed/ast"
+	"fmt"
+	"strconv"
 )
 
 const (
-	_       int = iota
+	_           int = iota
 	LOWEST
-	EQUALS   // == LESSGREATER // > or <
-	SUM      //+
-	PRODUCT  //*
-	PREFIX   //-Xor!X
-	CALL     // myFunction(X)
+	EQUALS       // ==
+	LESSGREATER  // > or <
+	SUM          //+
+	PRODUCT      //*
+	PREFIX       //-Xor!X
+	CALL         // myFunction(X)
 )
 
 type Parser struct {
@@ -158,7 +159,8 @@ func (p *Parser) parseIdentifier() ast.Expression {
 	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 }
 
-func (p *Parser) parseIntegerLiteral() ast.Expression { lit := &ast.IntegerLiteral{Token: p.curToken}
+func (p *Parser) parseIntegerLiteral() ast.Expression {
+	lit := &ast.IntegerLiteral{Token: p.curToken}
 	value, err := strconv.ParseInt(p.curToken.Literal, 0, 64)
 	if err != nil {
 		msg := fmt.Sprintf("could not parse %q as integer", p.curToken.Literal)
@@ -166,4 +168,30 @@ func (p *Parser) parseIntegerLiteral() ast.Expression { lit := &ast.IntegerLiter
 		return nil
 	}
 	lit.Value = value
-	return lit }
+	return lit
+}
+
+var precedences = map[token.TokenType]int{
+	token.EQ:       EQUALS,
+	token.NOT_EQ:   EQUALS,
+	token.LT:       LESSGREATER,
+	token.GT:       LESSGREATER,
+	token.PLUS:     SUM,
+	token.MINUS:    SUM,
+	token.SLASH:    PRODUCT,
+	token.ASTERISK: PRODUCT,
+}
+
+func (p *Parser) peekPrecedence() int {
+	if p, ok := precedences[p.peekToken.Type]; ok {
+		return p
+	}
+	return LOWEST
+}
+
+func (p *Parser) curPrecedence() int {
+	if p, ok := precedences[p.curToken.Type]; ok {
+		return p
+	}
+	return LOWEST
+}
