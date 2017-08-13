@@ -1,29 +1,40 @@
 package repl
 
 import (
+	"Xaed/lexer"
+	"Xaed/parser"
 	"bufio"
 	"fmt"
 	"io"
-	"Xaed/lexer"
-	"Xaed/token"
+	"strconv"
 )
 
 const PROMPT = "[%d] >> "
 
 func Start(in io.Reader, out io.Writer) {
+	var input_count = 0
 	scanner := bufio.NewScanner(in)
-	var i = 0
 	for {
-		fmt.Printf(PROMPT, i)
+		input_count++
+		fmt.Printf(PROMPT, input_count)
 		scanned := scanner.Scan()
 		if !scanned {
 			return
 		}
 		line := scanner.Text()
 		l := lexer.New(line)
-		for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken() {
-			fmt.Printf("%+v\n", tok)
+		p := parser.New(l)
+		program := p.ParseProgram()
+		if len(p.Errors()) != 0 {
+			printParserErrors(out, p.Errors(), input_count)
+			continue
 		}
-		i++
+		io.WriteString(out, program.String())
+		io.WriteString(out, "\n")
+	}
+}
+func printParserErrors(out io.Writer, errors []string, input_count int) {
+	for _, msg := range errors {
+		io.WriteString(out, "[" + strconv.Itoa(input_count) + "] \t"+msg+"\n")
 	}
 }
