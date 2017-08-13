@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"Xaed/lexer"
-	"Xaed/token"
 	"Xaed/parser"
 )
 
