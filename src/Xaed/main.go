@@ -1,4 +1,4 @@
-package Xaed
+package main
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Hello %s! This is the Monkey programming language!\n",
+	fmt.Printf("Hello %s! This is the Xaed programming language!\n",
 		user.Username)
 	repl.Start(os.Stdin, os.Stdout)
 }

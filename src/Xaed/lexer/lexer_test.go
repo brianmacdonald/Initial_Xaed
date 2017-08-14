@@ -27,6 +27,8 @@ if (5 < 10) {
 10 == 10;
 10 != 9;
 
+10 % 3;
+
 five.add := add;
 	`
 
@@ -124,6 +126,10 @@ five.add := add;
 		{token.INT, "10"},
 		{token.NOT_EQ, "!="},
 		{token.INT, "9"},
+		{token.SEMICOLON, ";"},
+		{token.INT, "10"},
+		{token.MODULO, "%"},
+		{token.INT, "3"},
 		{token.SEMICOLON, ";"},
 		{token.IDENT, "five"},
 		{token.SLOT, "."},
