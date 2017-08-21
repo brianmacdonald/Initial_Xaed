@@ -7,12 +7,15 @@ import (
 	"Xaed/lexer"
 	"Xaed/parser"
 	"Xaed/evaluator"
+	"Xaed/object"
 )
 
 const PROMPT = "[%d] >> "
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
+	env := object.NewEnvironment()
+
 	var i = 0
 	for {
 		fmt.Printf(PROMPT, i)
@@ -28,7 +31,7 @@ func Start(in io.Reader, out io.Writer) {
 			printParserErrors(out, p.Errors())
 			continue
 		}
-		evaluated := evaluator.Eval(program)
+		evaluated := evaluator.Eval(program, env)
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
