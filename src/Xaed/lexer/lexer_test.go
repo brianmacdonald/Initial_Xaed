@@ -29,6 +29,9 @@ if (5 < 10) {
 
 10 % 3;
 
+"foobar"
+"foo bar"
+
 five.add := add;
 	`
 
@@ -131,6 +134,8 @@ five.add := add;
 		{token.MODULO, "%"},
 		{token.INT, "3"},
 		{token.SEMICOLON, ";"},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
 		{token.IDENT, "five"},
 		{token.SLOT, "."},
 		{token.IDENT, "add"},
