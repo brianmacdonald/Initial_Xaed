@@ -57,6 +57,9 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		body := node.Body
 		return &object.Function{Parameters: params, Env: env, Body: body}
 
+	case *ast.WhileLiteral:
+		return evalWhile(node, env)
+
 	case *ast.CallExpression:
 		function := Eval(node.Function, env)
 		if isError(function) {
@@ -344,4 +347,19 @@ func evalStringInfixExpression(
 	leftVal := left.(*object.String).Value
 	rightVal := right.(*object.String).Value
 	return &object.String{Value: leftVal + rightVal}
+}
+
+
+func evalWhile(ie *ast.WhileLiteral, env *object.Environment) object.Object {
+	condition := Eval(ie.Condition, env)
+
+	if isError(condition) {
+		return condition
+	}
+
+	for isTruthy(condition) {
+		Eval(ie.Consequence, env)
+		condition = Eval(ie.Condition, env)
+	}
+	return NULL
 }

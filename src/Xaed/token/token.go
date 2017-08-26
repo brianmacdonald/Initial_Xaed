@@ -37,6 +37,7 @@ const (
 	SLOT = "."
 	// Keywords
 	FUNCTION = "FUNCTION"
+	WHILE    = "WHILE"
 	LET      = "LET"
 	TRUE     = "TRUE"
 	FALSE    = "FALSE"
@@ -48,6 +49,7 @@ const (
 
 var keywords = map[string]TokenType{
 	"fn":     FUNCTION,
+	"while":  WHILE,
 	"let":    LET,
 	"true":   TRUE,
 	"false":  FALSE,

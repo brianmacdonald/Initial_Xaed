@@ -239,7 +239,6 @@ func (ce *CallExpression) String() string {
 	return out.String()
 }
 
-
 type StringLiteral struct {
 	Token token.Token
 	Value string
@@ -248,3 +247,21 @@ type StringLiteral struct {
 func (sl *StringLiteral) expressionNode()      {}
 func (sl *StringLiteral) TokenLiteral() string { return sl.Token.Literal }
 func (sl *StringLiteral) String() string       { return sl.Token.Literal }
+
+type WhileLiteral struct {
+	Token     token.Token // The 'while' token
+	Condition Expression
+	Consequence *BlockStatement
+}
+
+func (fl *WhileLiteral) expressionNode()      {}
+func (wl *WhileLiteral) TokenLiteral() string { return wl.Token.Literal }
+func (wl *WhileLiteral) String() string {
+	var out bytes.Buffer
+	out.WriteString(wl.TokenLiteral())
+	out.WriteString("(")
+	out.WriteString(wl.Condition.String())
+	out.WriteString(") ")
+	out.WriteString(wl.Consequence.String())
+	return out.String()
+}
