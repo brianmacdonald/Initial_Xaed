@@ -32,6 +32,10 @@ if (5 < 10) {
 "foobar"
 "foo bar"
 
+while (true) {
+	"spam eggs"
+}
+
 five.add := add;
 	`
 
@@ -136,6 +140,13 @@ five.add := add;
 		{token.SEMICOLON, ";"},
 		{token.STRING, "foobar"},
 		{token.STRING, "foo bar"},
+		{token.WHILE, "while"},
+		{token.LPAREN, "("},
+		{token.TRUE, "true"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.STRING, "spam eggs"},
+		{token.RBRACE, "}"},
 		{token.IDENT, "five"},
 		{token.SLOT, "."},
 		{token.IDENT, "add"},
