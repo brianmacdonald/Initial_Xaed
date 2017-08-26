@@ -380,3 +380,16 @@ func TestBuiltinFunctions(t *testing.T) {
 		}
 	}
 }
+
+func TestWhileApplication(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected int64
+	}{
+		{"let i := 1; while(i < 10) { let i := i + 1; }; return i;", 10},
+	}
+
+	for _, tt := range tests {
+		testIntegerObject(t, testEval(tt.input), tt.expected)
+	}
+}
