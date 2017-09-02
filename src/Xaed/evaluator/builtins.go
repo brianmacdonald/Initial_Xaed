@@ -138,6 +138,22 @@ var builtins = map[string]*object.Builtin{
 			return &object.Array{Elements: newElements}
 		},
 	},
+	"import": &object.Builtin{
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 2 {
+				return newError("wrong number of arguments. got=%d, want=2",
+					len(args))
+			}
+			if args[0].Type() != object.STRING_OBJ {
+				return newError("argument to `import` must be STRING, got %s",
+					args[0].Type())
+			}
+
+			//str := args[0].(*object.String)
+
+			return NULL
+		},
+	},
 }
 
 func reverseArray(input []object.Object) []object.Object {

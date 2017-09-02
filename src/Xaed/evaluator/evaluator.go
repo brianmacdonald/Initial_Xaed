@@ -325,6 +325,7 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 		return unwrapReturnValue(evaluated)
 
 	case *object.Builtin:
+		extendedEnv := extendBuiltinEnv(fn, args)
 		return fn.Fn(args...)
 
 	default:
@@ -366,7 +367,6 @@ func evalStringInfixExpression(
 	rightVal := right.(*object.String).Value
 	return &object.String{Value: leftVal + rightVal}
 }
-
 
 func evalWhile(ie *ast.WhileLiteral, env *object.Environment) object.Object {
 	condition := Eval(ie.Condition, env)
