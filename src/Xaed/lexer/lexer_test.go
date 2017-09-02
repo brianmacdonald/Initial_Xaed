@@ -36,6 +36,8 @@ while (true) {
 	"spam eggs"
 }
 
+[1, 2];
+
 five.add := add;
 	`
 
@@ -147,6 +149,13 @@ five.add := add;
 		{token.LBRACE, "{"},
 		{token.STRING, "spam eggs"},
 		{token.RBRACE, "}"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.INT, "2"},
+		{token.RBRACKET, "]"},
+		{token.SEMICOLON, ";"},
+		{token.EOF, ""},
 		{token.IDENT, "five"},
 		{token.SLOT, "."},
 		{token.IDENT, "add"},
