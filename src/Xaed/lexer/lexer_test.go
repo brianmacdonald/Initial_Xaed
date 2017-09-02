@@ -155,7 +155,6 @@ five.add := add;
 		{token.INT, "2"},
 		{token.RBRACKET, "]"},
 		{token.SEMICOLON, ";"},
-		{token.EOF, ""},
 		{token.IDENT, "five"},
 		{token.SLOT, "."},
 		{token.IDENT, "add"},
