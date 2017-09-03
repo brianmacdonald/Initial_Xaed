@@ -64,6 +64,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.FUNCTION, p.parseFunctionLiteral)
 	p.registerPrefix(token.STRING, p.parseStringLiteral)
 	p.registerPrefix(token.WHILE, p.parseWhileLiteral)
+	p.registerPrefix(token.IMPORT, p.parseImportLiteral)
 	p.registerPrefix(token.LBRACKET, p.parseArrayLiteral)
 	// Read two tokens, so curToken and peekToken are both set
 	p.nextToken()
@@ -387,6 +388,15 @@ func (p *Parser) parseWhileLiteral() ast.Expression {
 		return nil
 	}
 	lit.Consequence = p.parseBlockStatement()
+	return lit
+}
+
+func (p *Parser) parseImportLiteral() ast.Expression {
+	lit := &ast.ImportLiteral{Token: p.curToken}
+	if !p.expectPeek(token.STRING) {
+		return nil
+	}
+	lit.Path = p.parseStringLiteral()
 	return lit
 }
 

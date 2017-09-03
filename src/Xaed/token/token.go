@@ -38,6 +38,7 @@ const (
 	// Keywords
 	FUNCTION = "FUNCTION"
 	WHILE    = "WHILE"
+	IMPORT   = "IMPORT"
 	LET      = "LET"
 	TRUE     = "TRUE"
 	FALSE    = "FALSE"
@@ -52,6 +53,7 @@ const (
 var keywords = map[string]TokenType{
 	"fn":     FUNCTION,
 	"while":  WHILE,
+	"import": IMPORT,
 	"let":    LET,
 	"true":   TRUE,
 	"false":  FALSE,

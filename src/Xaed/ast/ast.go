@@ -249,12 +249,12 @@ func (sl *StringLiteral) TokenLiteral() string { return sl.Token.Literal }
 func (sl *StringLiteral) String() string       { return sl.Token.Literal }
 
 type WhileLiteral struct {
-	Token     token.Token // The 'while' token
-	Condition Expression
+	Token       token.Token // The 'while' token
+	Condition   Expression
 	Consequence *BlockStatement
 }
 
-func (fl *WhileLiteral) expressionNode()      {}
+func (wl *WhileLiteral) expressionNode()      {}
 func (wl *WhileLiteral) TokenLiteral() string { return wl.Token.Literal }
 func (wl *WhileLiteral) String() string {
 	var out bytes.Buffer
@@ -293,6 +293,7 @@ type IndexExpression struct {
 	Left  Expression
 	Index Expression
 }
+
 func (ie *IndexExpression) expressionNode()      {}
 func (ie *IndexExpression) TokenLiteral() string { return ie.Token.Literal }
 func (ie *IndexExpression) String() string {
@@ -304,5 +305,21 @@ func (ie *IndexExpression) String() string {
 	out.WriteString(ie.Index.String())
 	out.WriteString("])")
 
+	return out.String()
+}
+
+type ImportLiteral struct {
+	Token token.Token // The 'import' token
+	Path  Expression
+}
+
+func (il *ImportLiteral) expressionNode()      {}
+func (il *ImportLiteral) TokenLiteral() string { return il.Token.Literal }
+func (il *ImportLiteral) String() string {
+	var out bytes.Buffer
+	out.WriteString(il.TokenLiteral())
+	out.WriteString(" \"")
+	out.WriteString(il.Path.String())
+	out.WriteString("\"")
 	return out.String()
 }

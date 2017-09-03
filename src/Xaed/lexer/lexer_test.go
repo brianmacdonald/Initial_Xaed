@@ -38,6 +38,8 @@ while (true) {
 
 [1, 2];
 
+import "/path/";
+
 five.add := add;
 	`
 
@@ -154,6 +156,9 @@ five.add := add;
 		{token.COMMA, ","},
 		{token.INT, "2"},
 		{token.RBRACKET, "]"},
+		{token.SEMICOLON, ";"},
+		{token.IMPORT, "import"},
+		{token.STRING, "/path/"},
 		{token.SEMICOLON, ";"},
 		{token.IDENT, "five"},
 		{token.SLOT, "."},
