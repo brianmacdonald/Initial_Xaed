@@ -4,6 +4,9 @@ import (
 	"Xaed/ast"
 	"Xaed/object"
 	"fmt"
+	"io/ioutil"
+	"Xaed/lexer"
+	"Xaed/parser"
 )
 
 func Eval(node ast.Node, env *object.Environment) object.Object {
@@ -59,6 +62,9 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 
 	case *ast.WhileLiteral:
 		return evalWhile(node, env)
+
+	case *ast.ImportLiteral:
+		return evalImport(node, env)
 
 	case *ast.CallExpression:
 		function := Eval(node.Function, env)
@@ -325,7 +331,6 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 		return unwrapReturnValue(evaluated)
 
 	case *object.Builtin:
-		extendedEnv := extendBuiltinEnv(fn, args)
 		return fn.Fn(args...)
 
 	default:
@@ -379,6 +384,15 @@ func evalWhile(ie *ast.WhileLiteral, env *object.Environment) object.Object {
 		Eval(ie.Consequence, env)
 		condition = Eval(ie.Condition, env)
 	}
+	return NULL
+}
+
+func evalImport(il *ast.ImportLiteral, env *object.Environment) object.Object {
+	dat, _ := ioutil.ReadFile(il.Path.String())
+	el := lexer.New(string(dat))
+	ep := parser.New(el)
+	eprogram := ep.ParseProgram()
+	Eval(eprogram, env)
 	return NULL
 }
 

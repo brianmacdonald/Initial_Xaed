@@ -394,6 +394,20 @@ func TestWhileApplication(t *testing.T) {
 	}
 }
 
+func TestImport(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected int64
+	}{
+		{`import "../xaed/src/source_tests/TestImport.xaed"; return i;`, 42},
+	}
+
+	for _, tt := range tests {
+		evaluated := testEval(tt.input)
+		testIntegerObject(t, evaluated, tt.expected)
+	}
+}
+
 func TestArrayLiterals(t *testing.T) {
 	input := "[1, 2 * 2, 3 + 3]"
 
